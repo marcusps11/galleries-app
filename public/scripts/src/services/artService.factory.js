@@ -5,13 +5,16 @@ artService.$inject = ['$q', '$http'];
 function artService($q, $http) {
     return {
         getArtFromGoogleSpreadSheet() {
-            var defer = $q.defer;
+            var defer = $q.defer();
 
             $http({
                 method: 'GET',
-                url: 
-            }).succer
+                url: 'assets/data/gallerydata.json'
+            }).success(function (response) {
+                defer.resolve(response);
+            });
+            return defer.promise;
         }
-        
+
     }
 }

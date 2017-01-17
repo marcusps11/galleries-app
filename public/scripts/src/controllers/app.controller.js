@@ -11,6 +11,8 @@ appController.$inject = ['$scope', 'artService'];
 
         function onGalleriesLoad(galleries) {
             $scope.galleries = galleries;
+    
         }
+        init();
     }
 
