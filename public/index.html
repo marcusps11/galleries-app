@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="artApp">
+
 <head>
     <meta charset="UTF-8">
     <title>Galleries</title>
     <link rel="stylesheet" href="styles/build/main.css">
-
     <script src="assets/libs/angular/angular.js" defer></script>
+    <script src="http://maps.google.com/maps/api/js" defer></script>
+    <script src="assets/libs/ngmap/build/scripts/ng-map.min.js" defer></script>
     <script src="scripts/build/app.js" defer></script>
 </head>
+
 <body>
     <main ng-controller="appController">
+        <div ng-repeat="item in galleries">
+            {{item.address}}
+        </div>
 
-        {{galleries}}
+          <ng-map center="[40.74, -74.18]"></ng-map>
+
     </main>
-
-    hello
-
+    
 </body>
+
 </html>
+
