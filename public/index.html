@@ -17,7 +17,9 @@
             {{item.address}}
         </div>
 
-          <ng-map center="[40.74, -74.18]"></ng-map>
+          <ng-map center="[40.74, -74.18]">
+               <marker ng-repeat="item in position" position="{{item.lat}},{{item.lng}}"></marker>
+          </ng-map>
 
     </main>
     
