@@ -5,8 +5,11 @@ app.controller('appController', appController);
 appController.$inject = ['$scope', 'artService', 'NgMap'];
 
 function appController($scope, artService, NgMap) {
-    $scope.message = 'hello';
-    $scope.position = [];
+    let vm = this;
+    vm.message = 'hello';
+    vm.position = [];
+
+    
 
     function init() {
         artService.getArtFromGoogleSpreadSheet().then(onGalleriesLoad);
@@ -15,7 +18,9 @@ function appController($scope, artService, NgMap) {
     }
 
     function onGalleriesLoad(galleries) {
-        $scope.galleries = galleries;
+        vm.galleries = galleries;
+        getLatLng(galleries)
+
 
     }
 
@@ -25,15 +30,18 @@ function appController($scope, artService, NgMap) {
         });
     }
 
-    function getLatLng() {
-        var lat = 43.6600000;
-        var lng = -79.4103000;
+    function getLatLng(galleries) {
+        if (galleries) {
+            galleries.forEach((gallery) => {
+                let obj = {}
+                obj["name"] = gallery.gallery;
+                obj["lat"] = gallery.lat.split(',')[0]
+                obj["lng"] = gallery.lat.split(',')[1]
+                vm.position.push(obj)
 
-        $scope.position.push({
-            lat: lat,
-            lng: lng
         })
-        console.log($scope.position)
+        }
+
     }
     init();
 }
