@@ -13,17 +13,22 @@
 
 <body>
     <main ng-controller="appController as vm">
-        <div ng-repeat="item in vm.galleries">
-            {{item.address}}
-        </div>
-
-          <ng-map center="[51.520051, -0.142314]">
-               <marker ng-repeat="item in vm.position" position="{{item.lat}}, {{item.lng}}"></marker>
-     
-          </ng-map>
-          {{item.address}}
+        {{vm.selectedCity}}
+        <ng-map center="[51.520051, -0.142314]">
+            <info-window style="width:100px; height: 90px;" id="myInfoWindow">
+                <div ng-non-bindable>
+                </div>
+            </info-window>
+            <marker ng-repeat="item in vm.position" position="{{item.lat}}, {{item.lng}}" on-click="vm.showCity(event, item)"></marker>
+        </ng-map>
+        <ul ng-repeat="item in vm.galleries">
+            <li>{{item.date}}</li>
+            <li>{{item.address}}</li>
+            <li>{{item.artist}}</li>
+            <li>{{item.title}}</li>
+            <li>{{item.link}}</li>
+        </ul>
     </main>
-    
 </body>
 
 </html>

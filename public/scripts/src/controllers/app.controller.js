@@ -1,31 +1,31 @@
 app.controller('appController', appController);
 
-appController.$inject = ['$scope', 'artService', 'NgMap'];
+appController.$inject = ['artService', 'NgMap'];
 
-function appController($scope, artService, NgMap) {
+function appController(artService, NgMap) {
     let vm = this;
-    vm.message = 'hello';
     vm.position = [];
-
-    
 
     function init() {
         artService.getArtFromGoogleSpreadSheet().then(onGalleriesLoad);
         getGoogleMap();
-        getLatLng();
+        getLatLng(vm.galleries);
+    }
+
+    vm.showCity = function (event, city) {
+        vm.selectedCity = city.name;
+        vm.map.showInfoWindow('myInfoWindow', this);
+    }
+
+    function getGoogleMap() {
+        NgMap.getMap().then(function (map) {
+            vm.map = map;
+        });
     }
 
     function onGalleriesLoad(galleries) {
         vm.galleries = galleries;
         getLatLng(galleries)
-
-
-    }
-
-    function getGoogleMap() {
-        NgMap.getMap().then(function (map) {
-
-        });
     }
 
     function getLatLng(galleries) {
@@ -36,11 +36,15 @@ function appController($scope, artService, NgMap) {
                 obj["lat"] = gallery.lat.split(',')[0]
                 obj["lng"] = gallery.lat.split(',')[1]
                 vm.position.push(obj)
-
-        })
+            })
         }
-
     }
+
+
+
+    // vm.showCity();
+
+
     init();
 }
 
