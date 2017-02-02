@@ -8,21 +8,13 @@ function appController(artService, NgMap) {
     let vm = this;
     vm.position = [];
 
+    NgMap.getMap().then(function (map) {
+        vm.map = map;
+        init();
+    });
+
     function init() {
         artService.getArtFromGoogleSpreadSheet().then(onGalleriesLoad);
-        getGoogleMap();
-        getLatLng(vm.galleries);
-    }
-
-    vm.showCity = function (event, city) {
-        vm.selectedCity = city.name;
-        vm.map.showInfoWindow('myInfoWindow', this);
-    }
-
-    function getGoogleMap() {
-        NgMap.getMap().then(function (map) {
-            vm.map = map;
-        });
     }
 
     function onGalleriesLoad(galleries) {
@@ -33,22 +25,57 @@ function appController(artService, NgMap) {
     function getLatLng(galleries) {
         if (galleries) {
             galleries.forEach((gallery) => {
+                console.log(gallery)
                 let obj = {}
                 obj["name"] = gallery.gallery;
+                obj["title"] = gallery.title;
+                obj["address"] = gallery.address;
                 obj["lat"] = gallery.lat.split(',')[0]
                 obj["lng"] = gallery.lat.split(',')[1]
+                obj["date"] = gallery.date;
+                obj["time"] = gallery.time;
+                obj["link"] = gallery.link;
                 vm.position.push(obj)
             })
         }
     }
 
 
+    vm.showDetail = function (e, item) {
+        vm.item = item;
+        vm.map.showInfoWindow('foo-iw', this);
+    };
 
-    // vm.showCity();
+    vm.hideDetail = function () {
+        vm.map.hideInfoWindow('foo-iw');
+    };
+};
+
+// function init() {
+//     getGoogleMap();
+//     getLatLng(vm.galleries);
+// }
+
+// vm.showCity = function (event, city) {
+//     vm.selectedCity = city.name;
+//     vm.map.showInfoWindow('myInfoWindow', this);
+// }
+
+// function getGoogleMap() {
+
+// }
 
 
-    init();
-}
+
+
+
+
+
+// vm.showCity();
+
+
+//     init();
+// }
 
 
 

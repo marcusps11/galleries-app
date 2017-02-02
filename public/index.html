@@ -12,22 +12,26 @@
 </head>
 
 <body>
-    <main ng-controller="appController as vm">
-        {{vm.selectedCity}}
-        <ng-map center="[51.520051, -0.142314]">
-            <info-window style="width:100px; height: 90px;" id="myInfoWindow">
-                <div ng-non-bindable>
-                </div>
-            </info-window>
-            <marker ng-repeat="item in vm.position" position="{{item.lat}}, {{item.lng}}" on-click="vm.showCity(event, item)"></marker>
-        </ng-map>
-        <ul ng-repeat="item in vm.galleries">
-            <li>{{item.date}}</li>
-            <li>{{item.address}}</li>
-            <li>{{item.artist}}</li>
-            <li>{{item.title}}</li>
-            <li>{{item.link}}</li>
-        </ul>
+    <main>
+        <div ng-controller="appController as vm">
+            <ng-map default-style="true" center="51.52,-0.129" zoom="11">
+                <marker id='{{item.id}}' position="{{item.lat}}, {{item.lng}}" ng-repeat="item in vm.position" on-click="vm.showDetail(item)">
+                </marker>
+                <info-window id="foo-iw">
+                    <div ng-non-bindable="">
+                        Date: {{vm.item.date}} {{vm.item.time}}<br/> Artist: {{vm.item.name}}<br/> Show: {{vm.item.title}}<br/>Address:
+                        {{vm.item.address}}<br/>
+                        <a href="{{vm.item.link}}" ng-click="vm.clicked()">Click Here</a>
+                    </div>
+                </info-window>
+            </ng-map>
+            <button ng-click="vm.showDetail(e, vm.item)">
+      show InfoWindow of the item
+    </button>
+            <button ng-click="vm.hideDetail(e, vm.item)">
+      Hide InfoWindow of the item
+    </button>
+        </div>
     </main>
 </body>
 
