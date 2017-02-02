@@ -18,28 +18,19 @@ function appController(artService, NgMap) {
     }
 
     function onGalleriesLoad(galleries) {
-        vm.galleries = galleries;
         getLatLng(galleries)
+        vm.galleries = galleries;
+
     }
 
     function getLatLng(galleries) {
         if (galleries) {
             galleries.forEach((gallery) => {
-                console.log(gallery)
-                let obj = {}
-                obj["name"] = gallery.gallery;
-                obj["title"] = gallery.title;
-                obj["address"] = gallery.address;
-                obj["lat"] = gallery.lat.split(',')[0]
-                obj["lng"] = gallery.lat.split(',')[1]
-                obj["date"] = gallery.date;
-                obj["time"] = gallery.time;
-                obj["link"] = gallery.link;
-                vm.position.push(obj)
+                gallery["lat"] = gallery.lat.split(',')
+                return gallery;
             })
         }
     }
-
 
     vm.showDetail = function (e, item) {
         vm.item = item;
@@ -49,33 +40,7 @@ function appController(artService, NgMap) {
     vm.hideDetail = function () {
         vm.map.hideInfoWindow('foo-iw');
     };
-};
-
-// function init() {
-//     getGoogleMap();
-//     getLatLng(vm.galleries);
-// }
-
-// vm.showCity = function (event, city) {
-//     vm.selectedCity = city.name;
-//     vm.map.showInfoWindow('myInfoWindow', this);
-// }
-
-// function getGoogleMap() {
-
-// }
-
-
-
-
-
-
-
-// vm.showCity();
-
-
-//     init();
-// }
+}
 
 
 

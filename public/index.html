@@ -15,11 +15,12 @@
     <main>
         <div ng-controller="appController as vm">
             <ng-map default-style="true" center="51.52,-0.129" zoom="11">
-                <marker id='{{item.id}}' position="{{item.lat}}, {{item.lng}}" ng-repeat="item in vm.position" on-click="vm.showDetail(item)">
+                <marker id='{{item.id}}' position="{{item.lat[0]}}, {{item.lat[1]}}" ng-repeat="item in vm.galleries" on-click="vm.showDetail(item)">
+          
                 </marker>
                 <info-window id="foo-iw">
                     <div ng-non-bindable="">
-                        Date: {{vm.item.date}} {{vm.item.time}}<br/> Artist: {{vm.item.name}}<br/> Show: {{vm.item.title}}<br/>Address:
+                        Date: {{vm.item.date}} {{vm.item.time}}<br/> Artist: {{vm.item.artist}}<br/> Show: {{vm.item.title}}<br/>Address:
                         {{vm.item.address}}<br/>
                         <a href="{{vm.item.link}}" ng-click="vm.clicked()">Click Here</a>
                     </div>
