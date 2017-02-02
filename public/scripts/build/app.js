@@ -6,7 +6,6 @@ appController.$inject = ['artService', 'NgMap'];
 
 function appController(artService, NgMap) {
     let vm = this;
-    vm.position = [];
 
     NgMap.getMap().then(function (map) {
         vm.map = map;
@@ -20,6 +19,7 @@ function appController(artService, NgMap) {
     function onGalleriesLoad(galleries) {
         getLatLng(galleries)
         vm.galleries = galleries;
+        console.log(vm.galleries)
 
     }
 
