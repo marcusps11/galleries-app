@@ -10,7 +10,12 @@ function appController(artService, NgMap) {
     NgMap.getMap().then(function (map) {
         vm.map = map;
         init();
+        google.maps.event.trigger(map, 'resize');
     });
+
+    vm.toggleViews() {
+        
+    }
 
     function init() {
         artService.getArtFromGoogleSpreadSheet().then(onGalleriesLoad);
@@ -19,7 +24,6 @@ function appController(artService, NgMap) {
     function onGalleriesLoad(galleries) {
         getLatLng(galleries)
         vm.galleries = galleries;
-        console.log(vm.galleries)
 
     }
 
